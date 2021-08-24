@@ -1,4 +1,23 @@
-<h1>{{title}}</h1>
-<ul>
-  <li *ngFor="let todo of todos" >{{todo}}</li>
-</ul>
+ <div class="main-todo">
+  <h1>{{title}}</h1>
+
+  <ul>
+    <li *ngFor="let todo of todos">
+      {{todo.id}}  {{todo.title}} -
+       <button *ngIf="!todo.done" (click)="markAsDone(todo)" class="btn-success">Concluir</button>  
+        <button *ngIf="todo.done" (click)="markAsUnDone(todo)" class="btn-delete">Refazer</button>  
+        <button (click)="remove(todo)" class="btn-delete">Remover</button></li>
+  </ul>
+   <form [formGroup]="form">
+    
+       <label >Tarefa: </label>
+       <input type="text" placeholder="Digite sua Tarefa">
+       <button>Salvar</button>
+     
+   </form>
+
+
+
+
+
+</div>
