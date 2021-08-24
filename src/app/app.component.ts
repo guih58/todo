@@ -6,5 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'todo';
+  public todos: any[] = [];
+  public title: String = "Minha tarefas"
+  
+  
+  constructor() {
+    this.todos.push("Passar com matheus")
+    this.todos.push("Passar com matheus")
+    this.todos.push("Passar com matheus")
+
+
+    
+  }
 }
