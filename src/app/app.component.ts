@@ -16,7 +16,7 @@ export class AppComponent {
 
   constructor(private fb: FormBuilder) {
     this.form= this.fb.group({
-      titulo: ['' , Validators.compose([
+      title: ['' , Validators.compose([
         Validators.minLength(3),
         Validators.maxLength(60),
         Validators.required
@@ -24,9 +24,7 @@ export class AppComponent {
       
       
     })
-    this.todos.push( new Todo(1 , "Matheus Guilherme " ,false))
-    this.todos.push( new Todo(2 , "Matheus Guilherme " ,false))
-    this.todos.push( new Todo(3 , "Matheus Guilherme " ,true))
+  this.load()
   
   }
   remove(todo: Todo){
@@ -34,13 +32,39 @@ export class AppComponent {
   if(index != -1){
     this.todos.splice(index, 1)
   }
-
+  this.save();
   }
   markAsDone(todo: Todo){
     todo.done = true;
+    this.save()
   }
   markAsUnDone(todo: Todo){
     todo.done = false;
+    this.save()
+  }
+  add(){
+    const title = this.form.controls['title'].value
+    const id = this.todos.length + 1;
+    this.todos.push(new Todo(id ,title ,false));
+    this.save()
+    this.clear()
+  }
+  clear(){
+    this.form.reset()
   }
  
+  save(){
+   const data = JSON.stringify(this.todos);
+   localStorage.setItem('todos',data)
+  }
+  load(){
+    const data:any = localStorage.getItem('todos');
+    this.todos= JSON.parse(data)
+    if(data){
+      this.todos = JSON.parse(data)
+    }else{
+      this.todos = []
+    }
+  }
+
 }
